@@ -19,6 +19,27 @@
   <strong>Created at:</strong>
   <%= @image.created_at %>
 </p>
+ <h2>コメント一覧</h2>
+<ul>
+  <% @image.image_comment.each do |image_comment|%>
+   <li><%= image_comment.comment %>
+     (<i><%= image_comment.user_id %></i>)</li>
+<% end %>
+</ul>
+
+ <h2>コメントフォーム</h2>
+  <%= form_with(model: @image_comment, local: true) do |form| %>
+    <div class="field">
+      <%= form.label :comment %><br>
+      <%= form.text_field :comment %>
+      <%= form.hidden_field :image_id, :value => @image.id %>
+    </div>
+    <div class="action">
+      <%= form.submit %>
+    </div>
+    <% end %>
 
 <%= link_to 'Edit', edit_image_path(@image) %> |
 <%= link_to 'Back', images_path %>
+
+ 
